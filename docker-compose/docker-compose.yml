@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  database:
+    image: mysql
+    container_name: docker-mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/data:/home/mysql/data
+    environment:
+      MYSQL_ROOT_PASSWORD: pwd
+    command: [ '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci' ]
+    networks:
+      my_stock_app_net:
+        ipv4_address: 172.20.0.10
+      
+networks:
+  my_stock_app_net:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.20.0.0/16
