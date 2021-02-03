@@ -1,0 +1,22 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: financial-statements-batch
+spec:
+  schedule: "0 0 1 2,5,8,11 *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: financial-statements-batch
+            image: 702867482623.dkr.ecr.ap-northeast-2.amazonaws.com/myapp/stock-batch
+            imagePullPolicy: Always
+            env:
+              - name: SPRING_PROFILES_ACTIVE
+                value: prod
+              - name: SPRING_BATCH_JOB_NAMES
+                value: CRAWLING_FINANCIAL_STATEMENTS
+          restartPolicy: Never
+          imagePullSecrets:
+          - name: regcred
