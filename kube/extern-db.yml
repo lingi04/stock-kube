@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-mysql
+spec:
+  ports:
+    - port: 3306
+      protocol: TCP
+---
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: docker-mysql
+subsets:
+  - addresses:
+    - ip: 172.20.0.10
+    ports:
+      - port: 3306
+
+# kind: Service 
+# apiVersion: v1 
+# metadata: 
+#   name: docker-mysql
+# spec: 
+#   ports: 
+#     - name: docker-mysql-port
+#       protocol: "TCP" 
+#       port: 3306 
+#       targetPort: 3306 
+# --- 
+# kind: Endpoints 
+# apiVersion: v1 
+# metadata: 
+#   name: docker-mysql
+# subsets: 
+#   - 
+#     addresses: 
+#       - 
+#         ip: 8.8.8.8 
+#         #외부 web server의 ip 주소 
+#     ports: 
+#       - 
+#         port: 3306 
+#         name: docker-mysql-port
