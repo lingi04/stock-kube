@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: default
 spec:
-  schedule: "22 22 * * *"
+  schedule: "22 22 * * 1,2,3,4,5"
   jobTemplate:
     spec:
       template:
