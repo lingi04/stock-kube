@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: default
 spec:
-  schedule: "17 22 * * *"
+  schedule: "22 22 * * *"
   jobTemplate:
     spec:
       template:
@@ -11,24 +11,12 @@ spec:
           containers:
           - name: quote-batch
             image: 702867482623.dkr.ecr.ap-northeast-2.amazonaws.com/myapp/stock-batch
-            imagePullPolicy: IfNotPresent
+            imagePullPolicy: Always
             env:
               - name: SPRING_PROFILES_ACTIVE
                 value: prod
               - name: SPRING_BATCH_JOB_NAMES
                 value: QUOTE_JOB
-
-            command: [
-              # "docker", 
-              # "run", "--rm", "--network stock-batch_default", 
-              # "-e \"SPRING_PROFILES_ACTIVE=prod\"", 
-              # "-e \"SPRING_BATCH_JOB_NAMES=QUOTE_JOB\"", 
-              # "702867482623.dkr.ecr.ap-northeast-2.amazonaws.com/myapp/stock-batch:latest"
-            ]
-            # args:
-            # - /bin/sh
-            # - -c
-            # - date; echo Hello from the Kubernetes cluster
           restartPolicy: Never
           imagePullSecrets:
           - name: regcred
