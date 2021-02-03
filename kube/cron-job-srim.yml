@@ -3,7 +3,7 @@ kind: CronJob
 metadata:
   name: calc-s-rim
 spec:
-  schedule: "10 14 * * *"
+  schedule: "0 0 1 1 *"
   jobTemplate:
     spec:
       template:
@@ -11,16 +11,12 @@ spec:
           containers:
           - name: calc-s-rim
             image: 702867482623.dkr.ecr.ap-northeast-2.amazonaws.com/myapp/stock-batch
-            imagePullPolicy: IfNotPresent
-            command: [
-              "docker", 
-              "run", "--rm", "--network stock-batch_default", 
-              "-e \"SPRING_PROFILES_ACTIVE=prod\"", 
-              "-e \"SPRING_BATCH_JOB_NAMES=QUOTE_JOB\"", 
-              "myapp/stock-batch"
-            ]
-            # args:
-            # - /bin/sh
-            # - -c
-            # - date; echo Hello from the Kubernetes cluster
+            imagePullPolicy: Always
+            env:
+              - name: SPRING_PROFILES_ACTIVE
+                value: prod
+              - name: SPRING_BATCH_JOB_NAMES
+                value: CALC_S_RIM
           restartPolicy: Never
+          imagePullSecrets:
+          - name: regcred
