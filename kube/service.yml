@@ -1,0 +1,12 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: docker-mysql
+spec:
+  ports:
+    - port: 3306
+      protocol: TCP
+  # selector:
+  #   type: db
+  #   service: docker-mysql
+  
