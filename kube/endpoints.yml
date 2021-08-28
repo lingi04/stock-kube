@@ -1,0 +1,10 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+  name: docker-mysql
+subsets:
+  - addresses:
+    - ip: 172.20.0.10
+    ports:
+      - port: 3306
+      
